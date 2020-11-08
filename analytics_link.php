@@ -22,15 +22,10 @@ add_shortcode( 'a', 'a_shortcode' );
  
 
 function callback($buffer) {
-  $pattern = '/microsoft/i';
-
-  $buffer = preg_replace("!data-track-click=\"(.*?)\"!si","onclick=\"gtag(event, \\1, {event_category: 'Link Click', transport: 'beacon'})\"",$buffer);
-
-  return $buffer;
+  return preg_replace("!data-track-click=\"(.*?)\"!si","onclick=\"gtag(event, \\1, {event_category: 'Link Click', transport: 'beacon'})\"",$buffer);
 }
  
  function buffer_start() { ob_start("callback"); }
- 
  function buffer_end() { ob_end_flush(); }
  
  add_action('wp_head', 'buffer_start');
